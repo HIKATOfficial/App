@@ -54,7 +54,7 @@ const CONFIG = {
   RAZORPAY_KEY_ID: "PASTE_RAZORPAY_KEY_ID_HERE",
 
   /* WhatsApp Seller Number */
-  SELLER_WHATSAPP: "91XXXXXXXXXX",
+  SELLER_WHATSAPP: "919836697502",
 
   /* Product Rules */
   PRODUCT_ID_PREFIX: "DS",
@@ -115,15 +115,15 @@ const CONFIG = {
   },
 
   /* Product Size Options */
-  SIZES: [
-    "S",
-    "M",
-    "L",
-    "XL",
-    "XXL",
-    "Free Size",
-    "Standard Size"
-  ],
+SIZES: [
+  "S",
+  "M",
+  "L",
+  "XL",
+  "XXL",
+  "XXXL",
+  "Free Size"
+],
 
   /* Product Categories */
   CATEGORIES: [
