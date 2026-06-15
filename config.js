@@ -43,7 +43,7 @@ const CONFIG = {
   },
 
   /* Supabase */
-  SUPABASE_URL: "PASTE_YOUR_SUPABASE_URL_HERE",
+  SUPABASE_URL: "https://ijclbrwofsgrdnlyzkro.supabase.co",
   SUPABASE_ANON_KEY: "PASTE_YOUR_SUPABASE_ANON_KEY_HERE",
 
   /* Cloudinary */
