@@ -6,6 +6,9 @@
 
   <title>HI • KAT | Login</title>
 
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#5B1A9C">
+
   <!-- Icons -->
   <link
     href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
@@ -15,9 +18,10 @@
   <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Config + Common -->
+  <!-- Config + Common + Supabase -->
   <script src="config.js"></script>
   <script src="common.js" defer></script>
+  <script src="supabase.js" defer></script>
 </head>
 
 <body class="login-page">
@@ -32,7 +36,6 @@
   <section class="login-hero">
     <div class="login-hero-content">
 
-      <!-- Brand -->
       <div class="login-brand">
         <div class="brand-logo">
           HI<span class="brand-dot">•</span>KAT
@@ -42,7 +45,6 @@
         </div>
       </div>
 
-      <!-- Hero Text -->
       <h2 class="login-title">
         New Season
         <span>New Style</span>
@@ -60,7 +62,6 @@
   <section class="login-card-wrap">
     <div class="login-card">
 
-      <!-- Bag Icon -->
       <div class="login-bag-icon">
         <i class="ri-shopping-bag-heart-line"></i>
       </div>
@@ -70,7 +71,6 @@
         Sign in to continue shopping
       </p>
 
-      <!-- Name -->
       <div class="form-group">
         <div class="input-box">
           <span class="input-icon">
@@ -85,7 +85,6 @@
         </div>
       </div>
 
-      <!-- Phone -->
       <div class="form-group">
         <div class="input-box">
           <span class="input-icon">
@@ -101,23 +100,19 @@
         </div>
       </div>
 
-      <!-- Sign In -->
-      <button class="signin-btn" onclick="handleLogin()">
+      <button class="signin-btn" id="loginBtn" onclick="handleLogin()">
         SIGN IN
       </button>
 
-      <!-- Divider -->
       <div class="or-divider">
         <span>or</span>
       </div>
 
-      <!-- New User -->
       <button class="signup-btn" onclick="handleNewUser()">
         <i class="ri-user-add-line"></i>
         <span>New User ? Sign up</span>
       </button>
 
-      <!-- Forgot Links -->
       <div class="forgot-row">
         <button class="forgot-link" onclick="forgotName()">
           Forgot name?
@@ -172,11 +167,11 @@
 
   </section>
 
-  <!-- Page Logic -->
   <script>
-    function handleLogin() {
+    async function handleLogin() {
       const name = document.getElementById("userName").value.trim();
       const phone = document.getElementById("userPhone").value.trim();
+      const loginBtn = document.getElementById("loginBtn");
 
       if (!validateName(name)) {
         showToast(CONFIG.MESSAGES.NAME_REQUIRED);
@@ -193,19 +188,35 @@
         return;
       }
 
-      const user = {
-        id: "USER-" + phone,
-        name: name,
-        phone: phone
-      };
+      loginBtn.disabled = true;
+      loginBtn.innerText = "PLEASE WAIT...";
 
-      saveUser(user);
+      try {
+        if (typeof loginOrCreateUser !== "function") {
+          throw new Error("Supabase login function not found");
+        }
 
-      showToast(CONFIG.MESSAGES.LOGIN_SUCCESS);
+        const user = await loginOrCreateUser(name, phone);
 
-      setTimeout(() => {
-        window.location.href = CONFIG.HOME_PAGE;
-      }, 700);
+        saveUser({
+          id: user.id || "USER-" + phone,
+          name: user.name || name,
+          phone: user.phone || phone
+        });
+
+        showToast(CONFIG.MESSAGES.LOGIN_SUCCESS);
+
+        setTimeout(() => {
+          window.location.href = CONFIG.HOME_PAGE;
+        }, 700);
+
+      } catch (error) {
+        console.error("Login Error:", error);
+        showToast("Login failed. Please try again.");
+
+        loginBtn.disabled = false;
+        loginBtn.innerText = "SIGN IN";
+      }
     }
 
     function handleNewUser() {
@@ -223,6 +234,12 @@
     document.getElementById("userPhone").addEventListener("input", function () {
       this.value = this.value.replace(/\D/g, "").slice(0, 10);
     });
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js");
+      });
+    }
   </script>
 
 </body>
