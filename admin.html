@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HI • KAT Admin</title>
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<script src="config.js"></script>
+<script src="common.js" defer></script>
+
+<style>
+body{
+  background:#fbfaff;
+  padding-bottom:80px;
+}
+
+.admin-top{
+  height:72px;
+  background:linear-gradient(90deg,#3B0764,#5B1A9C,#3B0764);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+}
+
+.admin-brand{
+  font-family:"Playfair Display",serif;
+  font-size:34px;
+  letter-spacing:3px;
+}
+
+.admin-brand span{
+  color:#D4AF37;
+}
+
+.admin-tag{
+  font-family:Poppins,sans-serif;
+  font-size:18px;
+  color:#FDE68A;
+  margin-left:8px;
+}
+
+.admin-right{
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+
+.admin-date{
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:8px;
+  padding:10px 14px;
+  font-size:14px;
+}
+
+.admin-user{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.admin-user img{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.admin-layout{
+  display:grid;
+  grid-template-columns:220px 1fr;
+}
+
+.sidebar{
+  min-height:calc(100vh - 72px);
+  background:#fff;
+  padding:24px 14px;
+  border-right:1px solid #eee;
+  position:sticky;
+  top:0;
+}
+
+.side-link{
+  width:100%;
+  height:48px;
+  border-radius:10px;
+  background:none;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:0 16px;
+  font-size:15px;
+  color:#111827;
+  margin-bottom:8px;
+}
+
+.side-link i{
+  font-size:20px;
+}
+
+.side-link.active{
+  background:#F4ECFF;
+  color:#5B1A9C;
+  font-weight:700;
+}
+
+.side-link.logout{
+  color:#DC2626;
+}
+
+.admin-main{
+  padding:24px 26px;
+}
+
+.top-cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-bottom:18px;
+}
+
+.stat-card{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:14px;
+  padding:22px;
+  box-shadow:0 6px 20px rgba(0,0,0,.04);
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+
+.stat-icon{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+}
+
+.purple-bg{background:#F3E8FF;color:#5B1A9C;}
+.orange-bg{background:#FFF7ED;color:#EA580C;}
+.blue-bg{background:#EFF6FF;color:#2563EB;}
+.green-bg{background:#ECFDF5;color:#16A34A;}
+.pink-bg{background:#FDF2F8;color:#DB2777;}
+
+.stat-card small{
+  color:#6B7280;
+  font-size:13px;
+}
+
+.stat-card h2{
+  font-size:26px;
+  color:#5B1A9C;
+  margin:4px 0;
+}
+
+.stat-card p{
+  font-size:13px;
+  color:#16A34A;
+}
+
+.admin-section{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:16px;
+  box-shadow:0 6px 20px rgba(0,0,0,.04);
+  padding:20px;
+  margin-bottom:18px;
+}
+
+.admin-section h3{
+  font-size:20px;
+  margin-bottom:18px;
+}
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.mini-stat{
+  border:1px solid #eee;
+  border-radius:12px;
+  padding:18px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.mini-stat i{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+}
+
+.mini-stat strong{
+  display:block;
+  font-size:24px;
+  color:#5B1A9C;
+}
+
+.mini-stat span{
+  color:#6B7280;
+  font-size:13px;
+}
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:16px;
+}
+
+.quick-btn{
+  height:92px;
+  border-radius:12px;
+  background:#FAF5FF;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  color:#111827;
+  font-weight:600;
+  font-size:13px;
+}
+
+.quick-btn i{
+  font-size:34px;
+  color:#5B1A9C;
+}
+
+.quick-btn:nth-child(2){background:#FFF1F2;}
+.quick-btn:nth-child(2) i{color:#DB2777;}
+.quick-btn:nth-child(3){background:#F0FDF4;}
+.quick-btn:nth-child(3) i{color:#16A34A;}
+.quick-btn:nth-child(4){background:#EFF6FF;}
+.quick-btn:nth-child(4) i{color:#2563EB;}
+.quick-btn:nth-child(6){background:#FFF7ED;}
+.quick-btn:nth-child(6) i{color:#EA580C;}
+
+.customer-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:14px;
+}
+
+.customer-box{
+  min-height:95px;
+  border-radius:12px;
+  background:#FAF5FF;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+}
+
+.customer-box i{
+  font-size:30px;
+  color:#5B1A9C;
+}
+
+.customer-box strong{
+  font-size:22px;
+}
+
+.customer-box span{
+  font-size:12px;
+}
+
+.marketing-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.marketing-card{
+  border:1px solid #eee;
+  border-radius:14px;
+  padding:18px;
+  background:#fff;
+}
+
+.marketing-card h3{
+  color:#5B1A9C;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.form-row{
+  display:grid;
+  grid-template-columns:160px 1fr;
+  gap:18px;
+}
+
+.admin-label{
+  font-size:13px;
+  color:#111827;
+  margin-bottom:8px;
+  display:block;
+}
+
+.admin-select,
+.admin-input{
+  width:100%;
+  height:46px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  padding:0 12px;
+  font-size:14px;
+  outline:none;
+}
+
+.preview-box{
+  background:#FAF5FF;
+  border-radius:10px;
+  padding:16px;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.preview-pink{
+  background:#FFF1F2;
+}
+
+.admin-btn{
+  margin-top:14px;
+  height:46px;
+  border-radius:8px;
+  background:#5B1A9C;
+  color:#fff;
+  padding:0 20px;
+  font-weight:700;
+  width:100%;
+}
+
+.admin-btn.pink{
+  background:#DB2777;
+}
+
+.analytics-order-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:18px;
+}
+
+.tabs{
+  display:flex;
+  gap:10px;
+  margin-bottom:16px;
+}
+
+.tab{
+  height:34px;
+  padding:0 18px;
+  border-radius:6px;
+  background:#F4ECFF;
+  color:#111827;
+  font-size:13px;
+}
+
+.tab.active{
+  background:#5B1A9C;
+  color:#fff;
+}
+
+.analytics-tables{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.small-table{
+  border:1px solid #eee;
+  border-radius:10px;
+  padding:12px;
+}
+
+.small-table h4{
+  margin-bottom:10px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+th,td{
+  text-align:left;
+  padding:7px 4px;
+}
+
+th{
+  color:#6B7280;
+  font-weight:600;
+}
+
+.view-link{
+  color:#5B1A9C;
+  font-weight:700;
+  font-size:13px;
+  text-align:center;
+  display:block;
+  margin-top:10px;
+}
+
+.order-status-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:16px;
+}
+
+.status-pill{
+  border-radius:8px;
+  padding:9px;
+  font-size:12px;
+  display:flex;
+  justify-content:space-between;
+  font-weight:700;
+}
+
+.pending{background:#FFF7ED;color:#EA580C;}
+.confirmed{background:#EFF6FF;color:#2563EB;}
+.packed{background:#F4ECFF;color:#5B1A9C;}
+.shipped{background:#ECFEFF;color:#0891B2;}
+.out{background:#FFF1F2;color:#E11D48;}
+.delivered{background:#ECFDF5;color:#16A34A;}
+.cancelled{background:#FEF2F2;color:#DC2626;}
+
+.status-select{
+  height:30px;
+  border:1px solid #ddd;
+  border-radius:6px;
+  font-size:12px;
+}
+
+@media(max-width:900px){
+  .admin-layout{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    display:none;
+  }
+
+  .admin-main{
+    padding:14px;
+  }
+
+  .top-cards,
+  .dashboard-grid,
+  .customer-grid,
+  .quick-grid,
+  .marketing-grid,
+  .analytics-order-grid,
+  .analytics-tables{
+    grid-template-columns:1fr;
+  }
+
+  .admin-top{
+    height:auto;
+    padding:14px;
+    gap:12px;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="admin-top">
+  <div>
+    <span class="admin-brand">HI<span>•</span>KAT</span>
+    <span class="admin-tag">ADMIN</span>
+  </div>
+
+  <div class="admin-right">
+    <div class="admin-date">
+      <i class="ri-calendar-line"></i>
+      15 May 2025, Thursday
+    </div>
+
+    <div>
+      <i class="ri-notification-3-line"></i>
+    </div>
+
+    <div class="admin-user">
+      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80">
+      <div>
+        <strong>Admin</strong><br>
+        <small>Super Admin</small>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="admin-layout">
+
+  <aside class="sidebar">
+    <button class="side-link active"><i class="ri-home-5-line"></i>Dashboard</button>
+    <button class="side-link"><i class="ri-clipboard-line"></i>Orders</button>
+    <button class="side-link"><i class="ri-user-line"></i>Customers</button>
+    <button class="side-link"><i class="ri-box-3-line"></i>Products</button>
+    <button class="side-link"><i class="ri-archive-line"></i>Inventory</button>
+    <button class="side-link"><i class="ri-megaphone-line"></i>Marketing</button>
+    <button class="side-link"><i class="ri-price-tag-3-line"></i>Coupons</button>
+    <button class="side-link"><i class="ri-bar-chart-line"></i>Reports</button>
+    <button class="side-link"><i class="ri-settings-3-line"></i>Settings</button>
+    <button class="side-link"><i class="ri-user-search-line"></i>Users</button>
+    <button class="side-link logout"><i class="ri-logout-box-r-line"></i>Logout</button>
+  </aside>
+
+  <main class="admin-main">
+
+    <section class="top-cards">
+      <div class="stat-card">
+        <div class="stat-icon purple-bg"><i class="ri-money-rupee-circle-line"></i></div>
+        <div>
+          <small>Today Sale</small>
+          <h2>₹18,450</h2>
+          <p>↑ 12.5% vs yesterday</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon orange-bg"><i class="ri-clipboard-line"></i></div>
+        <div>
+          <small>Pending Orders</small>
+          <h2>12</h2>
+          <small>View all orders</small>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon blue-bg"><i class="ri-user-line"></i></div>
+        <div>
+          <small>New Users</small>
+          <h2>7</h2>
+          <small>Today joined</small>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon purple-bg"><i class="ri-box-3-line"></i></div>
+        <div>
+          <small>Total Products</small>
+          <h2>256</h2>
+          <small>Active products</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-section">
+      <h3>Dashboard Overview</h3>
+
+      <div class="dashboard-grid">
+        <div class="mini-stat"><i class="ri-money-rupee-circle-line purple-bg"></i><div><span>Today Sale</span><strong>₹18,450</strong><p>↑ 12.5%</p></div></div>
+        <div class="mini-stat"><i class="ri-shopping-bag-line purple-bg"></i><div><span>Total Orders</span><strong>48</strong><p>↑ 8.3%</p></div></div>
+        <div class="mini-stat"><i class="ri-time-line orange-bg"></i><div><span>Pending Orders</span><strong>12</strong><p>↑ 20%</p></div></div>
+        <div class="mini-stat"><i class="ri-user-add-line blue-bg"></i><div><span>New Customers</span><strong>7</strong><p>↑ 40%</p></div></div>
+        <div class="mini-stat"><i class="ri-team-line purple-bg"></i><div><span>Repeat Customers</span><strong>15</strong><p>↑ 15%</p></div></div>
+        <div class="mini-stat"><i class="ri-shopping-cart-line pink-bg"></i><div><span>Cart No Order</span><strong>23</strong><p>↑ 5.2%</p></div></div>
+        <div class="mini-stat"><i class="ri-price-tag-3-line green-bg"></i><div><span>Coupon Sent</span><strong>35</strong><p>↑ 18%</p></div></div>
+        <div class="mini-stat"><i class="ri-box-3-line orange-bg"></i><div><span>Stock Requests</span><strong>9</strong><p>↑ 12%</p></div></div>
+      </div>
+    </section>
+
+    <section class="admin-section">
+      <h3>Quick Actions</h3>
+
+      <div class="quick-grid">
+        <button class="quick-btn"><i class="ri-send-plane-line"></i>Send Welcome Offer</button>
+        <button class="quick-btn"><i class="ri-shopping-cart-line"></i>Send Cart Reminder</button>
+        <button class="quick-btn"><i class="ri-price-tag-3-line"></i>Create Coupon</button>
+        <button class="quick-btn"><i class="ri-truck-line"></i>Update Order Status</button>
+        <button class="quick-btn"><i class="ri-box-3-line"></i>Add Product</button>
+        <button class="quick-btn"><i class="ri-notification-3-line"></i>Low Stock Alert</button>
+      </div>
+    </section>
+    <section class="admin-section">
+
+  <h3>
+    <i class="ri-user-settings-line"></i>
+    Customer Management
+  </h3>
+
+  <div class="customer-grid">
+
+    <div class="customer-box">
+      <i class="ri-user-add-line"></i>
+      <span>New Customer</span>
+      <strong>24</strong>
+    </div>
+
+    <div class="customer-box">
+      <i class="ri-user-line"></i>
+      <span>Regular Customer</span>
+      <strong>120</strong>
+    </div>
+
+    <div class="customer-box">
+      <i class="ri-vip-crown-line"></i>
+      <span>VIP Customer</span>
+      <strong>18</strong>
+    </div>
+
+    <div class="customer-box">
+      <i class="ri-shield-star-line"></i>
+      <span>High Buyer</span>
+      <strong>25</strong>
+    </div>
+
+    <div class="customer-box">
+      <i class="ri-shopping-cart-line"></i>
+      <span>Cart No Order</span>
+      <strong>23</strong>
+    </div>
+
+    <div class="customer-box">
+      <i class="ri-coupon-3-line"></i>
+      <span>Coupon Sent</span>
+      <strong>35</strong>
+    </div>
+
+    <div class="customer-box">
+      <i class="ri-box-3-line"></i>
+      <span>Stock Request</span>
+      <strong>9</strong>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="admin-section">
+
+  <div class="marketing-grid">
+
+    <div class="marketing-card">
+
+      <h3>
+        <i class="ri-gift-line"></i>
+        Welcome Offer
+      </h3>
+
+      <div class="form-row">
+
+        <div>
+
+          <label class="admin-label">
+            Discount %
+          </label>
+
+          <select class="admin-select">
+            <option>5%</option>
+            <option selected>10%</option>
+            <option>15%</option>
+            <option>20%</option>
+            <option>25%</option>
+          </select>
+
+          <button class="admin-btn">
+            <i class="ri-send-plane-fill"></i>
+            Send Welcome Coupon
+          </button>
+
+        </div>
+
+        <div>
+
+          <label class="admin-label">
+            Message Preview
+          </label>
+
+          <div class="preview-box">
+
+            Hi {name},<br><br>
+
+            Welcome to HI • KAT.<br><br>
+
+            Use coupon <b>WELCOME</b>
+            and get {discount}% extra discount
+            on your first order.
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="marketing-card">
+
+      <h3>
+        <i class="ri-shopping-cart-line"></i>
+        Cart No Order Reminder
+      </h3>
+
+      <div class="form-row">
+
+        <div>
+
+          <label class="admin-label">
+            Discount %
+          </label>
+
+          <select class="admin-select">
+            <option>5%</option>
+            <option selected>10%</option>
+            <option>15%</option>
+            <option>20%</option>
+            <option>25%</option>
+          </select>
+
+          <button class="admin-btn pink">
+            <i class="ri-send-plane-fill"></i>
+            Send Reminder
+          </button>
+
+        </div>
+
+        <div>
+
+          <label class="admin-label">
+            Message Preview
+          </label>
+
+          <div class="preview-box preview-pink">
+
+            Hi {name},<br><br>
+
+            You left products in your cart.<br><br>
+
+            Use coupon <b>SPECIAL</b>
+            and get {discount}% extra discount
+            on your order.
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="admin-section">
+
+  <div class="analytics-order-grid">
+
+    <div>
+
+      <h3>Product Analytics</h3>
+
+      <div class="tabs">
+
+        <button class="tab active">
+          Last 3 Days
+        </button>
+
+        <button class="tab">
+          Last 7 Days
+        </button>
+
+        <button class="tab">
+          Last Month
+        </button>
+
+      </div>
+
+      <div class="analytics-tables">
+
+        <div class="small-table">
+
+          <h4>Top Product View</h4>
+
+          <table>
+
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Views</th>
+            </tr>
+
+            <tr>
+              <td>P001</td>
+              <td>Floral Kurti</td>
+              <td>1245</td>
+            </tr>
+
+            <tr>
+              <td>P002</td>
+              <td>Anarkali</td>
+              <td>987</td>
+            </tr>
+
+            <tr>
+              <td>P003</td>
+              <td>Cotton Kurti</td>
+              <td>856</td>
+            </tr>
+
+            <tr>
+              <td>P004</td>
+              <td>Maxi Dress</td>
+              <td>645</td>
+            </tr>
+
+            <tr>
+              <td>P005</td>
+              <td>Saree</td>
+              <td>543</td>
+            </tr>
+
+          </table>
+
+          <a href="#" class="view-link">
+            View All
+          </a>
+
+        </div>
+
+
+
+        <div class="small-table">
+
+          <h4>Top Add To Cart</h4>
+
+          <table>
+
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Cart</th>
+            </tr>
+
+            <tr>
+              <td>P001</td>
+              <td>Floral Kurti</td>
+              <td>345</td>
+            </tr>
+
+            <tr>
+              <td>P002</td>
+              <td>Anarkali</td>
+              <td>287</td>
+            </tr>
+
+            <tr>
+              <td>P003</td>
+              <td>Maxi</td>
+              <td>243</td>
+            </tr>
+
+            <tr>
+              <td>P004</td>
+              <td>Saree</td>
+              <td>198</td>
+            </tr>
+
+            <tr>
+              <td>P005</td>
+              <td>Dress</td>
+              <td>176</td>
+            </tr>
+
+          </table>
+
+          <a href="#" class="view-link">
+            View All
+          </a>
+
+        </div>
+
+
+
+        <div class="small-table">
+
+          <h4>Best Selling Product</h4>
+
+          <table>
+
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Orders</th>
+            </tr>
+
+            <tr>
+              <td>P002</td>
+              <td>Anarkali</td>
+              <td>78</td>
+            </tr>
+
+            <tr>
+              <td>P001</td>
+              <td>Floral Kurti</td>
+              <td>56</td>
+            </tr>
+
+            <tr>
+              <td>P005</td>
+              <td>Designer Saree</td>
+              <td>45</td>
+            </tr>
+
+            <tr>
+              <td>P004</td>
+              <td>Maxi Dress</td>
+              <td>32</td>
+            </tr>
+
+            <tr>
+              <td>P003</td>
+              <td>Cotton Kurti</td>
+              <td>28</td>
+            </tr>
+
+          </table>
+
+          <a href="#" class="view-link">
+            View All
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+        <div>
+
+      <h3>Order Management</h3>
+
+      <div class="order-status-grid">
+        <div class="status-pill pending">
+          <span>Pending</span>
+          <b>12</b>
+        </div>
+
+        <div class="status-pill confirmed">
+          <span>Confirmed</span>
+          <b>10</b>
+        </div>
+
+        <div class="status-pill packed">
+          <span>Packed</span>
+          <b>8</b>
+        </div>
+
+        <div class="status-pill shipped">
+          <span>Shipped</span>
+          <b>6</b>
+        </div>
+
+        <div class="status-pill out">
+          <span>Out For Delivery</span>
+          <b>7</b>
+        </div>
+
+        <div class="status-pill delivered">
+          <span>Delivered</span>
+          <b>48</b>
+        </div>
+
+        <div class="status-pill cancelled">
+          <span>Cancelled</span>
+          <b>3</b>
+        </div>
+      </div>
+
+      <table>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+
+        <tr>
+          <td>#HK12345</td>
+          <td>Ananya Das</td>
+          <td>₹1,818</td>
+          <td><span class="status-pill pending">Pending</span></td>
+          <td>
+            <select class="status-select">
+              <option>Update</option>
+              <option>Confirmed</option>
+              <option>Packed</option>
+              <option>Shipped</option>
+              <option>Out For Delivery</option>
+              <option>Delivered</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>#HK12344</td>
+          <td>Priya Shaw</td>
+          <td>₹1,999</td>
+          <td><span class="status-pill confirmed">Confirmed</span></td>
+          <td>
+            <select class="status-select">
+              <option>Update</option>
+              <option>Packed</option>
+              <option>Shipped</option>
+              <option>Delivered</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>#HK12343</td>
+          <td>Riya Sen</td>
+          <td>₹599</td>
+          <td><span class="status-pill packed">Packed</span></td>
+          <td>
+            <select class="status-select">
+              <option>Update</option>
+              <option>Shipped</option>
+              <option>Out For Delivery</option>
+              <option>Delivered</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>#HK12342</td>
+          <td>Neha Roy</td>
+          <td>₹1,298</td>
+          <td><span class="status-pill shipped">Shipped</span></td>
+          <td>
+            <select class="status-select">
+              <option>Update</option>
+              <option>Out For Delivery</option>
+              <option>Delivered</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>#HK12341</td>
+          <td>Sneha Paul</td>
+          <td>₹749</td>
+          <td><span class="status-pill out">Out For Delivery</span></td>
+          <td>
+            <select class="status-select">
+              <option>Update</option>
+              <option>Delivered</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+
+      <a href="#" class="view-link">
+        View All Orders
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="admin-section">
+
+  <div class="analytics-order-grid">
+
+    <div>
+
+      <h3>
+        <i class="ri-printer-line"></i>
+        Print Shipping Label
+      </h3>
+
+      <table>
+        <tr>
+          <th>Name</th>
+          <td>Ananya Das</td>
+          <th>Police Station</th>
+          <td>Garia</td>
+        </tr>
+
+        <tr>
+          <th>Phone</th>
+          <td>+91 98765 43210</td>
+          <th>District</th>
+          <td>Kolkata</td>
+        </tr>
+
+        <tr>
+          <th>Village</th>
+          <td>Garia</td>
+          <th>Pincode</th>
+          <td>700084</td>
+        </tr>
+
+        <tr>
+          <th>Post Office</th>
+          <td>Gariahat</td>
+          <th>Landmark</th>
+          <td>Near Garia More</td>
+        </tr>
+      </table>
+
+      <button class="admin-btn">
+        <i class="ri-printer-line"></i>
+        Print Label
+      </button>
+
+    </div>
+
+
+    <div>
+
+      <h3>
+        <i class="ri-archive-line"></i>
+        Inventory Overview
+      </h3>
+
+      <div class="customer-grid" style="grid-template-columns:repeat(3,1fr);">
+
+        <div class="customer-box" style="background:#fff7ed;">
+          <i class="ri-alert-line" style="color:#ea580c;"></i>
+          <span>Low Stock Alert</span>
+          <strong>14</strong>
+          <small>View Products</small>
+        </div>
+
+        <div class="customer-box" style="background:#fff1f2;">
+          <i class="ri-close-circle-line" style="color:#dc2626;"></i>
+          <span>Out Of Stock</span>
+          <strong>7</strong>
+          <small>View Products</small>
+        </div>
+
+        <div class="customer-box" style="background:#eff6ff;">
+          <i class="ri-clipboard-line" style="color:#2563eb;"></i>
+          <span>Requested Product</span>
+          <strong>11</strong>
+          <small>View Requests</small>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="admin-section">
+
+  <h3>Business Analytics</h3>
+
+  <div class="quick-grid">
+
+    <div class="quick-btn">
+      <i class="ri-money-rupee-circle-line"></i>
+      <b>Today Sale</b>
+      ₹18,450
+    </div>
+
+    <div class="quick-btn">
+      <i class="ri-line-chart-line"></i>
+      <b>Yesterday Sale</b>
+      ₹16,390
+    </div>
+
+    <div class="quick-btn">
+      <i class="ri-bar-chart-box-line"></i>
+      <b>This Month Sale</b>
+      ₹4,85,230
+    </div>
+
+    <div class="quick-btn">
+      <i class="ri-vip-crown-line"></i>
+      <b>Best Category</b>
+      Kurtis
+    </div>
+
+    <div class="quick-btn">
+      <i class="ri-user-star-line"></i>
+      <b>Top Buyer</b>
+      Ananya Das
+    </div>
+
+    <div class="quick-btn">
+      <i class="ri-team-line"></i>
+      <b>Repeat Customers</b>
+      View List
+    </div>
+
+    <div class="quick-btn">
+      <i class="ri-close-circle-line"></i>
+      <b>Cancelled Orders</b>
+      View Orders
+    </div>
+
+    <div class="quick-btn">
+      <i class="ri-refresh-line"></i>
+      <b>Return Requests</b>
+      9 Requests
+    </div>
+
+  </div>
+
+</section>
+
+  </main>
+
+</div>
+
+
+<nav class="bottom-nav">
+  <button class="nav-item active">
+    <i class="ri-home-5-fill"></i>
+    <span>Dashboard</span>
+  </button>
+
+  <button class="nav-item">
+    <i class="ri-clipboard-line"></i>
+    <span>Orders</span>
+  </button>
+
+  <button class="nav-item">
+    <i class="ri-user-line"></i>
+    <span>Customers</span>
+  </button>
+
+  <button class="nav-item">
+    <i class="ri-box-3-line"></i>
+    <span>Products</span>
+  </button>
+
+  <button class="nav-item">
+    <i class="ri-settings-3-line"></i>
+    <span>Settings</span>
+  </button>
+</nav>
+
+
+<script>
+  document.querySelectorAll(".tab").forEach(function(tab){
+    tab.addEventListener("click", function(){
+      document.querySelectorAll(".tab").forEach(function(t){
+        t.classList.remove("active");
+      });
+      tab.classList.add("active");
+    });
+  });
+
+  document.querySelectorAll(".status-select").forEach(function(select){
+    select.addEventListener("change", function(){
+      if (select.value !== "Update") {
+        showToast("Order status updated to " + select.value);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
