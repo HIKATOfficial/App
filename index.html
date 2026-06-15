@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>HI • KAT | Login</title>
+
+  <!-- Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Config + Common -->
+  <script src="config.js"></script>
+  <script src="common.js" defer></script>
+</head>
+
+<body class="login-page">
+
+  <!-- Top Free Shipping Bar -->
+  <div class="top-shipping-bar">
+    <i class="ri-truck-line"></i>
+    <span>FREE SHIPPING on every product</span>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="login-hero">
+    <div class="login-hero-content">
+
+      <!-- Brand -->
+      <div class="login-brand">
+        <div class="brand-logo">
+          HI<span class="brand-dot">•</span>KAT
+        </div>
+        <div class="brand-tagline">
+          Wear Your Story
+        </div>
+      </div>
+
+      <!-- Hero Text -->
+      <h2 class="login-title">
+        New Season
+        <span>New Style</span>
+      </h2>
+
+      <p class="login-subtitle">
+        Discover the latest collection<br>
+        trending this season
+      </p>
+
+    </div>
+  </section>
+
+  <!-- Login Card -->
+  <section class="login-card-wrap">
+    <div class="login-card">
+
+      <!-- Bag Icon -->
+      <div class="login-bag-icon">
+        <i class="ri-shopping-bag-heart-line"></i>
+      </div>
+
+      <h1>Welcome Back</h1>
+      <p class="card-subtitle">
+        Sign in to continue shopping
+      </p>
+
+      <!-- Name -->
+      <div class="form-group">
+        <div class="input-box">
+          <span class="input-icon">
+            <i class="ri-user-line"></i>
+          </span>
+          <input
+            type="text"
+            id="userName"
+            placeholder="Enter your name"
+            autocomplete="name"
+          />
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="form-group">
+        <div class="input-box">
+          <span class="input-icon">
+            <i class="ri-smartphone-line"></i>
+          </span>
+          <input
+            type="tel"
+            id="userPhone"
+            placeholder="Enter your phone number"
+            maxlength="10"
+            autocomplete="tel"
+          />
+        </div>
+      </div>
+
+      <!-- Sign In -->
+      <button class="signin-btn" onclick="handleLogin()">
+        SIGN IN
+      </button>
+
+      <!-- Divider -->
+      <div class="or-divider">
+        <span>or</span>
+      </div>
+
+      <!-- New User -->
+      <button class="signup-btn" onclick="handleNewUser()">
+        <i class="ri-user-add-line"></i>
+        <span>New User ? Sign up</span>
+      </button>
+
+      <!-- Forgot Links -->
+      <div class="forgot-row">
+        <button class="forgot-link" onclick="forgotName()">
+          Forgot name?
+        </button>
+
+        <div class="forgot-divider"></div>
+
+        <button class="forgot-link" onclick="forgotPhone()">
+          Forgot phone number?
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Bottom Trust Row -->
+  <section class="login-trust-row">
+
+    <div class="trust-item">
+      <div class="trust-icon">
+        <i class="ri-shield-check-line"></i>
+      </div>
+      <div class="trust-text">
+        <strong>100% Secure</strong>
+        <span>Payments</span>
+      </div>
+    </div>
+
+    <div class="trust-divider"></div>
+
+    <div class="trust-item">
+      <div class="trust-icon">
+        <i class="ri-truck-line"></i>
+      </div>
+      <div class="trust-text">
+        <strong>Free Shipping</strong>
+        <span>on every product</span>
+      </div>
+    </div>
+
+    <div class="trust-divider"></div>
+
+    <div class="trust-item">
+      <div class="trust-icon">
+        <i class="ri-customer-service-2-line"></i>
+      </div>
+      <div class="trust-text">
+        <strong>24/7 Customer</strong>
+        <span>Support</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Page Logic -->
+  <script>
+    function handleLogin() {
+      const name = document.getElementById("userName").value.trim();
+      const phone = document.getElementById("userPhone").value.trim();
+
+      if (!validateName(name)) {
+        showToast(CONFIG.MESSAGES.NAME_REQUIRED);
+        return;
+      }
+
+      if (!phone) {
+        showToast(CONFIG.MESSAGES.PHONE_REQUIRED);
+        return;
+      }
+
+      if (!validatePhone(phone)) {
+        showToast(CONFIG.MESSAGES.INVALID_PHONE);
+        return;
+      }
+
+      const user = {
+        id: "USER-" + phone,
+        name: name,
+        phone: phone
+      };
+
+      saveUser(user);
+
+      showToast(CONFIG.MESSAGES.LOGIN_SUCCESS);
+
+      setTimeout(() => {
+        window.location.href = CONFIG.HOME_PAGE;
+      }, 700);
+    }
+
+    function handleNewUser() {
+      showToast("Enter your name and phone number, then tap SIGN IN");
+    }
+
+    function forgotName() {
+      showToast("Enter your phone number to find your name");
+    }
+
+    function forgotPhone() {
+      showToast("Enter your name to find your phone number");
+    }
+
+    document.getElementById("userPhone").addEventListener("input", function () {
+      this.value = this.value.replace(/\D/g, "").slice(0, 10);
+    });
+  </script>
+
+</body>
+</html>
