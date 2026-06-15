@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HI • KAT | Home</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="common.js" defer></script>
+
+  <style>
+    body{
+      background:#fff;
+      padding-bottom:90px;
+    }
+
+    .home-header{
+      padding:22px 28px;
+      display:grid;
+      grid-template-columns:45px 220px 1fr 45px 45px 45px;
+      align-items:center;
+      gap:18px;
+      background:#fff;
+    }
+
+    .menu-btn,
+    .header-action{
+      font-size:30px;
+      color:#111827;
+      background:none;
+      position:relative;
+    }
+
+    .home-logo .brand-logo{
+      font-size:42px;
+      letter-spacing:4px;
+    }
+
+    .home-logo .brand-tagline{
+      font-size:15px;
+      margin-top:2px;
+      letter-spacing:1px;
+    }
+
+    .search-box{
+      height:55px;
+      border:1.5px solid #e5e7eb;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:0 22px;
+      color:#6b7280;
+      font-size:18px;
+    }
+
+    .search-box i{
+      font-size:24px;
+    }
+
+    .cart-badge{
+      position:absolute;
+      top:-8px;
+      right:-8px;
+      width:24px;
+      height:24px;
+      background:#8b1bb3;
+      color:#fff;
+      border-radius:50%;
+      font-size:13px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+    }
+
+    .home-container{
+      padding:0 28px;
+    }
+
+    .hero-banner{
+      height:360px;
+      border-radius:22px;
+      overflow:hidden;
+      position:relative;
+      background:linear-gradient(100deg,#f5eaff 0%,#f2d8ff 100%);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 70px;
+    }
+
+    .hero-text{
+      z-index:2;
+      max-width:390px;
+    }
+
+    .new-badge{
+      display:inline-block;
+      background:#ead8ff;
+      color:#3b0764;
+      padding:8px 18px;
+      border-radius:14px;
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:18px;
+    }
+
+    .hero-text h1{
+      font-family:"Playfair Display",serif;
+      font-size:52px;
+      line-height:1.15;
+      color:#111827;
+    }
+
+    .hero-text h1 span{
+      color:#5B1A9C;
+      display:block;
+    }
+
+    .hero-text p{
+      margin-top:18px;
+      font-size:18px;
+      line-height:1.5;
+    }
+
+    .shop-btn{
+      margin-top:22px;
+      background:#4c0d8f;
+      color:#fff;
+      padding:14px 28px;
+      border-radius:8px;
+      font-weight:700;
+      font-size:16px;
+    }
+
+    .hero-model{
+      height:100%;
+      object-fit:contain;
+    }
+
+    .hero-arrow{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      box-shadow:0 5px 20px rgba(0,0,0,.1);
+    }
+
+    .hero-arrow.left{left:18px;}
+    .hero-arrow.right{right:18px;}
+
+    .dots{
+      position:absolute;
+      bottom:28px;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      gap:10px;
+    }
+
+    .dot{
+      width:11px;
+      height:11px;
+      background:#fff;
+      border-radius:50%;
+    }
+
+    .dot.active{
+      background:#5B1A9C;
+    }
+
+    .categories{
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      gap:26px;
+      margin:28px 0 34px;
+      text-align:center;
+    }
+
+    .cat-img{
+      width:120px;
+      height:120px;
+      margin:0 auto 12px;
+      border-radius:50%;
+      overflow:hidden;
+      background:#faf5ff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid #eee;
+    }
+
+    .cat-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .cat-title{
+      font-size:16px;
+      font-weight:500;
+    }
+
+    .all-cat{
+      font-size:48px;
+      color:#6D28D9;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin:24px 0 18px;
+    }
+
+    .section-head h2{
+      font-size:28px;
+      font-weight:700;
+    }
+
+    .view-all{
+      color:#5B1A9C;
+      font-weight:600;
+      font-size:15px;
+    }
+
+    .product-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:22px;
+    }
+
+    .product-card{
+      background:#fff;
+      border-radius:10px;
+      overflow:hidden;
+      box-shadow:0 4px 15px rgba(0,0,0,.08);
+      border:1px solid #eee;
+      position:relative;
+      cursor:pointer;
+    }
+
+    .product-img{
+      height:240px;
+      background:#f8f8f8;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .product-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .wish-btn{
+      position:absolute;
+      top:14px;
+      right:14px;
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:23px;
+      z-index:2;
+    }
+
+    .new-label{
+      position:absolute;
+      left:12px;
+      bottom:12px;
+      background:#8b1bb3;
+      color:#fff;
+      padding:6px 10px;
+      border-radius:5px;
+      font-size:13px;
+      font-weight:600;
+    }
+
+    .product-info{
+      padding:13px 12px 16px;
+    }
+
+    .product-info h3{
+      font-size:16px;
+      font-weight:500;
+      margin-bottom:9px;
+    }
+
+    .price-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+      flex-wrap:wrap;
+    }
+
+    .sell-price{
+      font-size:21px;
+      font-weight:800;
+      color:#111827;
+    }
+
+    .old-price{
+      font-size:14px;
+      color:#888;
+      text-decoration:line-through;
+    }
+
+    .discount{
+      font-size:13px;
+      color:#16A34A;
+      font-weight:700;
+    }
+
+    .rating{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      font-size:14px;
+      color:#555;
+    }
+
+    .rating i{
+      color:#f7a600;
+    }
+
+    .offers{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+
+    .offer-card{
+      height:180px;
+      border-radius:12px;
+      overflow:hidden;
+      padding:22px;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .offer-purple{background:#f1d5ff;}
+    .offer-peach{background:#ffe4d7;}
+    .offer-green{background:#dff9ec;}
+
+    .offer-card h3{
+      font-size:16px;
+      font-weight:500;
+    }
+
+    .offer-card h2{
+      font-size:32px;
+      margin:6px 0;
+    }
+
+    .offer-card p{
+      font-size:14px;
+    }
+
+    .coupon{
+      margin-top:14px;
+      border:1px dashed currentColor;
+      display:inline-block;
+      padding:9px 13px;
+      border-radius:6px;
+      font-size:13px;
+      font-weight:600;
+      background:rgba(255,255,255,.4);
+    }
+
+    .offer-card img{
+      height:170px;
+      position:absolute;
+      right:8px;
+      bottom:0;
+    }
+
+    .trust-strip{
+      margin:28px 0 12px;
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 5px 24px rgba(0,0,0,.07);
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      padding:20px;
+    }
+
+    .trust-box{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+      border-right:1px solid #ddd;
+    }
+
+    .trust-box:last-child{border-right:0;}
+
+    .trust-box i{
+      font-size:34px;
+      color:#4c0d8f;
+    }
+
+    .trust-box strong{
+      display:block;
+      font-size:14px;
+    }
+
+    .trust-box span{
+      font-size:13px;
+      color:#555;
+    }
+
+    @media(max-width:768px){
+      .home-header{
+        grid-template-columns:38px 1fr 38px 38px;
+        padding:16px;
+      }
+
+      .search-box{
+        grid-column:1/-1;
+        order:2;
+      }
+
+      .home-logo .brand-logo{
+        font-size:34px;
+      }
+
+      .home-container{padding:0 14px;}
+
+      .hero-banner{
+        height:280px;
+        padding:28px;
+      }
+
+      .hero-text h1{font-size:35px;}
+      .hero-text p{font-size:15px;}
+      .hero-model{display:none;}
+
+      .categories{
+        overflow-x:auto;
+        display:flex;
+        gap:22px;
+      }
+
+      .cat-item{min-width:90px;}
+      .cat-img{width:90px;height:90px;}
+
+      .product-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:14px;
+      }
+
+      .product-img{height:210px;}
+
+      .offers{
+        grid-template-columns:1fr;
+      }
+
+      .trust-strip{
+        grid-template-columns:1fr 1fr;
+        gap:18px;
+      }
+
+      .trust-box{
+        border-right:0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-shipping-bar">
+    <i class="ri-truck-line"></i>
+    <span>FREE SHIPPING on orders above ₹999</span>
+  </div>
+
+  <header class="home-header">
+    <button class="menu-btn"><i class="ri-menu-line"></i></button>
+
+    <div class="home-logo">
+      <div class="brand-logo">HI<span class="brand-dot">•</span>KAT</div>
+      <div class="brand-tagline">Wear Your Story</div>
+    </div>
+
+    <div class="search-box">
+      <i class="ri-search-line"></i>
+      <span>Search for products...</span>
+    </div>
+
+    <button class="header-action"><i class="ri-heart-line"></i></button>
+
+    <button class="header-action" onclick="goCart()">
+      <i class="ri-shopping-cart-line"></i>
+      <span class="cart-badge">3</span>
+    </button>
+
+    <button class="header-action" onclick="goProfile()">
+      <i class="ri-user-line"></i>
+    </button>
+  </header>
+
+  <main class="home-container">
+
+    <section class="hero-banner">
+      <button class="hero-arrow left"><i class="ri-arrow-left-s-line"></i></button>
+
+      <div class="hero-text">
+        <span class="new-badge">NEW ARRIVAL</span>
+        <h1>New Season <span>New Style</span></h1>
+        <p>Discover the latest collection<br>trending this season</p>
+        <button class="shop-btn" onclick="goProducts()">SHOP NOW</button>
+      </div>
+
+      <img class="hero-model" src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=500&q=80">
+
+      <button class="hero-arrow right"><i class="ri-arrow-right-s-line"></i></button>
+
+      <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </section>
+
+    <section class="categories">
+      <div class="cat-item"><div class="cat-img"><img src="https://images.unsplash.com/photo-1610189018260-3da95f27d957?auto=format&fit=crop&w=300&q=80"></div><div class="cat-title">Sarees</div></div>
+      <div class="cat-item"><div class="cat-img"><img src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=300&q=80"></div><div class="cat-title">Kurtis</div></div>
+      <div class="cat-item"><div class="cat-img"><img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=300&q=80"></div><div class="cat-title">Dresses</div></div>
+      <div class="cat-item"><div class="cat-img"><img src="https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=300&q=80"></div><div class="cat-title">Tops</div></div>
+      <div class="cat-item"><div class="cat-img"><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=300&q=80"></div><div class="cat-title">Lehenga</div></div>
+      <div class="cat-item"><div class="cat-img all-cat"><i class="ri-function-line"></i></div><div class="cat-title">All Categories</div></div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>New Arrivals</h2>
+        <button class="view-all" onclick="goProducts()">View All <i class="ri-arrow-right-s-line"></i></button>
+      </div>
+
+      <div class="product-grid">
+        <div class="product-card">
+          <button class="wish-btn"><i class="ri-heart-line"></i></button>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1583391733981-8498405f51b7?auto=format&fit=crop&w=500&q=80">
+            <span class="new-label">New</span>
+          </div>
+          <div class="product-info">
+            <h3>Floral Printed Kurti</h3>
+            <div class="price-row"><span class="sell-price">₹699</span><span class="old-price">₹999</span><span class="discount">30% OFF</span></div>
+            <div class="rating"><i class="ri-star-fill"></i> 4.6 <span>(128)</span></div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <button class="wish-btn"><i class="ri-heart-line"></i></button>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?auto=format&fit=crop&w=500&q=80">
+            <span class="new-label">New</span>
+          </div>
+          <div class="product-info">
+            <h3>Embroidered Anarkali</h3>
+            <div class="price-row"><span class="sell-price">₹1,299</span><span class="old-price">₹1,999</span><span class="discount">35% OFF</span></div>
+            <div class="rating"><i class="ri-star-fill"></i> 4.8 <span>(96)</span></div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <button class="wish-btn"><i class="ri-heart-line"></i></button>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1617019114583-affb34d1b3cd?auto=format&fit=crop&w=500&q=80">
+            <span class="new-label">New</span>
+          </div>
+          <div class="product-info">
+            <h3>Cotton Printed Kurti</h3>
+            <div class="price-row"><span class="sell-price">₹599</span><span class="old-price">₹899</span><span class="discount">33% OFF</span></div>
+            <div class="rating"><i class="ri-star-fill"></i> 4.5 <span>(74)</span></div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <button class="wish-btn"><i class="ri-heart-line"></i></button>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1611035624347-4c99d3f1d414?auto=format&fit=crop&w=500&q=80">
+            <span class="new-label">New</span>
+          </div>
+          <div class="product-info">
+            <h3>Designer Saree</h3>
+            <div class="price-row"><span class="sell-price">₹1,999</span><span class="old-price">₹2,999</span><span class="discount">33% OFF</span></div>
+            <div class="rating"><i class="ri-star-fill"></i> 4.7 <span>(112)</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Offer Zone</h2>
+        <button class="view-all">View All <i class="ri-arrow-right-s-line"></i></button>
+      </div>
+
+      <div class="offers">
+        <div class="offer-card offer-purple">
+          <div>
+            <h3>Flat</h3>
+            <h2>15% OFF</h2>
+            <p>On Orders Above ₹1499</p>
+            <span class="coupon">Use Code: STYLE15</span>
+          </div>
+        </div>
+
+        <div class="offer-card offer-peach">
+          <div>
+            <h3>Flat</h3>
+            <h2>20% OFF</h2>
+            <p>On Orders Above ₹2499</p>
+            <span class="coupon">Use Code: STYLE20</span>
+          </div>
+        </div>
+
+        <div class="offer-card offer-green">
+          <div>
+            <h3>Special Offer</h3>
+            <h2>25% OFF</h2>
+            <p>On Orders Above ₹3499</p>
+            <span class="coupon">Use Code: STYLE25</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <div class="trust-box"><i class="ri-shield-check-line"></i><div><strong>100% Secure</strong><span>Payments</span></div></div>
+      <div class="trust-box"><i class="ri-truck-line"></i><div><strong>Free Shipping</strong><span>Above ₹999</span></div></div>
+      <div class="trust-box"><i class="ri-archive-line"></i><div><strong>Easy Returns</strong><span>7 Days Return</span></div></div>
+      <div class="trust-box"><i class="ri-customer-service-2-line"></i><div><strong>Customer Support</strong><span>24/7 Support</span></div></div>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="goHome()"><i class="ri-home-5-fill"></i><span>Home</span></button>
+    <button class="nav-item" onclick="goProducts()"><i class="ri-function-line"></i><span>Categories</span></button>
+    <button class="nav-item" onclick="goProducts()"><i class="ri-search-line"></i><span>Search</span></button>
+    <button class="nav-item" onclick="goOrders()"><i class="ri-box-3-line"></i><span>Orders</span></button>
+    <button class="nav-item" onclick="goProfile()"><i class="ri-user-line"></i><span>Profile</span></button>
+  </nav>
+
+</body>
+</html>
