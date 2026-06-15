@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>HI • KAT | Cart</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="common.js" defer></script>
+
+  <style>
+    body{
+      background:#fff;
+      padding-bottom:95px;
+    }
+
+    .cart-header{
+      padding:22px 28px;
+      display:grid;
+      grid-template-columns:45px 220px 1fr 45px 45px 45px;
+      align-items:center;
+      gap:18px;
+      background:#fff;
+    }
+
+    .menu-btn,
+    .header-action{
+      font-size:30px;
+      color:#111827;
+      background:none;
+      position:relative;
+    }
+
+    .cart-logo .brand-logo{
+      font-size:42px;
+      letter-spacing:4px;
+    }
+
+    .cart-logo .brand-tagline{
+      font-size:15px;
+      margin-top:2px;
+      letter-spacing:1px;
+    }
+
+    .search-box{
+      height:55px;
+      border:1.5px solid #e5e7eb;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:0 22px;
+      color:#6b7280;
+      font-size:18px;
+      background:#fff;
+    }
+
+    .search-box i{
+      font-size:24px;
+    }
+
+    .cart-badge{
+      position:absolute;
+      top:-8px;
+      right:-8px;
+      width:24px;
+      height:24px;
+      background:#8b1bb3;
+      color:#fff;
+      border-radius:50%;
+      font-size:13px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+    }
+
+    .cart-container{
+      padding:0 30px;
+    }
+
+    .cart-title-row{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      margin:26px 0 18px;
+    }
+
+    .cart-title-row h1{
+      font-size:34px;
+      margin-bottom:8px;
+    }
+
+    .cart-title-row p{
+      color:#6b7280;
+      font-size:16px;
+    }
+
+    .remove-all{
+      color:#5B1A9C;
+      background:none;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:15px;
+      font-weight:700;
+    }
+
+    .cart-list{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .cart-card{
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      box-shadow:0 5px 22px rgba(0,0,0,.06);
+      display:grid;
+      grid-template-columns:210px 1fr 130px;
+      gap:22px;
+      padding:16px;
+      align-items:center;
+      position:relative;
+    }
+
+    .cart-img{
+      width:100%;
+      height:190px;
+      border-radius:12px;
+      overflow:hidden;
+      background:#f8f8f8;
+    }
+
+    .cart-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .cart-info h3{
+      font-size:22px;
+      margin-bottom:8px;
+    }
+
+    .cart-meta{
+      color:#6b7280;
+      margin-bottom:12px;
+      font-size:15px;
+    }
+
+    .cart-price-row{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-bottom:12px;
+    }
+
+    .cart-price{
+      font-size:24px;
+      font-weight:800;
+    }
+
+    .cart-old{
+      color:#777;
+      text-decoration:line-through;
+      font-size:15px;
+    }
+
+    .cart-discount{
+      color:#16A34A;
+      font-weight:700;
+      font-size:15px;
+    }
+
+    .stock{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:#16A34A;
+      font-weight:700;
+      margin-bottom:18px;
+      font-size:15px;
+    }
+
+    .qty-box{
+      display:inline-flex;
+      align-items:center;
+      border:1px solid #d1d5db;
+      border-radius:8px;
+      overflow:hidden;
+      height:42px;
+    }
+
+    .qty-box button{
+      width:45px;
+      height:42px;
+      background:#fff;
+      font-size:23px;
+      color:#111827;
+    }
+
+    .qty-box span{
+      width:45px;
+      text-align:center;
+      font-size:18px;
+      font-weight:700;
+    }
+
+    .delete-btn{
+      position:absolute;
+      top:18px;
+      right:18px;
+      width:42px;
+      height:42px;
+      border-radius:8px;
+      background:#faf5ff;
+      color:#111827;
+      font-size:22px;
+    }
+
+    .line-total{
+      justify-self:end;
+      align-self:end;
+      font-size:26px;
+      font-weight:800;
+    }
+
+    .cart-middle{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+      margin:28px 0;
+    }
+
+    .coupon-card,
+    .summary-card{
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      box-shadow:0 5px 22px rgba(0,0,0,.06);
+      padding:24px;
+      background:#fff;
+    }
+
+    .coupon-card{
+      background:linear-gradient(135deg,#faf5ff,#fff);
+    }
+
+    .card-heading{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:20px;
+      margin-bottom:18px;
+      color:#4c0d8f;
+    }
+
+    .coupon-input-row{
+      display:grid;
+      grid-template-columns:1fr 120px;
+      border:1px solid #e5e7eb;
+      border-radius:8px;
+      overflow:hidden;
+      background:#fff;
+      height:54px;
+    }
+
+    .coupon-input-row input{
+      border:0;
+      outline:0;
+      padding:0 18px;
+      font-size:15px;
+    }
+
+    .coupon-input-row button{
+      background:#4c0d8f;
+      color:#fff;
+      font-weight:700;
+      font-size:15px;
+    }
+
+    .coupon-hint{
+      margin-top:18px;
+      border:1px dashed #c084fc;
+      border-radius:10px;
+      padding:16px;
+      background:#f3e8ff;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      color:#3b0764;
+      font-size:14px;
+    }
+
+    .coupon-hint i{
+      font-size:24px;
+      color:#5B1A9C;
+    }
+
+    .summary-row{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:13px;
+      font-size:15px;
+    }
+
+    .summary-row.discount-row span:last-child{
+      color:#16A34A;
+      font-weight:700;
+    }
+
+    .summary-row.shipping-row span:last-child{
+      color:#16A34A;
+      font-weight:800;
+    }
+
+    .summary-divider{
+      height:1px;
+      background:#e5e7eb;
+      margin:18px 0;
+    }
+
+    .total-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:22px;
+      font-weight:800;
+    }
+
+    .total-row span:last-child{
+      color:#5B1A9C;
+      font-size:30px;
+    }
+
+    .saving-text{
+      margin-top:15px;
+      color:#16A34A;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .address-box{
+      margin:0 0 28px;
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      box-shadow:0 5px 22px rgba(0,0,0,.06);
+      padding:24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      background:#fff;
+    }
+
+    .address-left{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+    }
+
+    .address-left i{
+      font-size:32px;
+      color:#5B1A9C;
+    }
+
+    .address-left h3{
+      font-size:20px;
+      margin-bottom:6px;
+    }
+
+    .address-left p{
+      color:#6b7280;
+      font-size:15px;
+      line-height:1.5;
+    }
+
+    .address-btn{
+      background:#faf5ff;
+      color:#5B1A9C;
+      border:1px solid #ead8ff;
+      height:46px;
+      padding:0 22px;
+      border-radius:10px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .checkout-btn{
+      width:100%;
+      height:64px;
+      border-radius:10px;
+      background:linear-gradient(135deg,#4c0d8f,#7E22CE,#4c0d8f);
+      color:#fff;
+      font-size:19px;
+      font-weight:800;
+      letter-spacing:.4px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      box-shadow:0 15px 30px rgba(91,26,156,.22);
+    }
+
+    .cart-trust{
+      margin:28px 0;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      padding:20px 0;
+    }
+
+    .cart-trust-item{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+      border-right:1px solid #ddd;
+    }
+
+    .cart-trust-item:last-child{
+      border-right:0;
+    }
+
+    .cart-trust-item i{
+      font-size:34px;
+      color:#4c0d8f;
+    }
+
+    .cart-trust-item strong{
+      display:block;
+      font-size:14px;
+    }
+
+    .cart-trust-item span{
+      font-size:13px;
+      color:#555;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin:24px 0 18px;
+    }
+
+    .section-head h2{
+      font-size:26px;
+    }
+
+    .view-all{
+      color:#5B1A9C;
+      font-weight:700;
+      background:none;
+    }
+
+    .like-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:22px;
+    }
+
+    .like-card{
+      background:#fff;
+      border-radius:10px;
+      overflow:hidden;
+      box-shadow:0 4px 15px rgba(0,0,0,.08);
+      border:1px solid #eee;
+      position:relative;
+    }
+
+    .like-img{
+      height:210px;
+      background:#f8f8f8;
+    }
+
+    .like-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .like-info{
+      padding:12px;
+    }
+
+    .like-info h3{
+      font-size:15px;
+      font-weight:500;
+      margin-bottom:8px;
+    }
+
+    .bottom-nav{
+      grid-template-columns:repeat(5,1fr);
+    }
+
+    .address-modal{
+      position:fixed;
+      inset:0;
+      background:rgba(17,24,39,.45);
+      z-index:9999;
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+    }
+
+    .address-modal.show{
+      display:flex;
+    }
+
+    .address-popup{
+      width:min(680px,100%);
+      background:#fff;
+      border-radius:28px 28px 0 0;
+      padding:26px;
+      box-shadow:0 -15px 40px rgba(0,0,0,.18);
+      max-height:90vh;
+      overflow:auto;
+    }
+
+    .popup-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:20px;
+    }
+
+    .popup-head h2{
+      font-size:24px;
+    }
+
+    .close-popup{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:#faf5ff;
+      color:#5B1A9C;
+      font-size:24px;
+    }
+
+    .address-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .address-field{
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    .address-field.full{
+      grid-column:1/-1;
+    }
+
+    .address-field label{
+      font-size:14px;
+      font-weight:700;
+      color:#111827;
+    }
+
+    .address-field input{
+      height:52px;
+      border:1.5px solid #e5e7eb;
+      border-radius:10px;
+      padding:0 14px;
+      font-size:15px;
+      outline:none;
+    }
+
+    .address-field input:focus{
+      border-color:#6D28D9;
+      box-shadow:0 0 0 4px rgba(109,40,217,.09);
+    }
+
+    .save-address-btn{
+      margin-top:20px;
+      width:100%;
+      height:58px;
+      background:#5B1A9C;
+      color:#fff;
+      border-radius:10px;
+      font-size:17px;
+      font-weight:800;
+    }
+
+    @media(max-width:768px){
+      .cart-header{
+        grid-template-columns:38px 1fr 38px 38px;
+        padding:16px;
+      }
+
+      .search-box{
+        grid-column:1/-1;
+        order:2;
+      }
+
+      .cart-logo .brand-logo{
+        font-size:34px;
+      }
+
+      .cart-container{
+        padding:0 14px;
+      }
+
+      .cart-card{
+        grid-template-columns:120px 1fr;
+        gap:14px;
+      }
+
+      .cart-img{
+        height:140px;
+      }
+
+      .line-total{
+        grid-column:2;
+        font-size:20px;
+      }
+
+      .cart-info h3{
+        font-size:17px;
+      }
+
+      .cart-middle{
+        grid-template-columns:1fr;
+      }
+
+      .like-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:14px;
+      }
+
+      .address-grid{
+        grid-template-columns:1fr;
+      }
+
+      .cart-trust{
+        grid-template-columns:1fr;
+      }
+
+      .cart-trust-item{
+        border-right:0;
+        justify-content:flex-start;
+        padding-left:20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-shipping-bar">
+    <i class="ri-truck-line"></i>
+    <span>FREE SHIPPING on orders above ₹999</span>
+  </div>
+
+  <header class="cart-header">
+    <button class="menu-btn"><i class="ri-menu-line"></i></button>
+
+    <div class="cart-logo">
+      <div class="brand-logo">HI<span class="brand-dot">•</span>KAT</div>
+      <div class="brand-tagline">Wear Your Story</div>
+    </div>
+
+    <div class="search-box" onclick="goProducts()">
+      <i class="ri-search-line"></i>
+      <span>Search for products...</span>
+    </div>
+
+    <button class="header-action"><i class="ri-heart-line"></i></button>
+
+    <button class="header-action" onclick="goCart()">
+      <i class="ri-shopping-cart-line"></i>
+      <span class="cart-badge">3</span>
+    </button>
+
+    <button class="header-action" onclick="goProfile()">
+      <i class="ri-user-line"></i>
+    </button>
+  </header>
+
+  <main class="cart-container">
+
+    <div class="cart-title-row">
+      <div>
+        <h1>My Cart (3)</h1>
+        <p>3 items in your cart</p>
+      </div>
+
+      <button class="remove-all" onclick="showToast('All cart items removed')">
+        <i class="ri-delete-bin-line"></i>
+        Remove All
+      </button>
+    </div>
+
+    <section class="cart-list">
+
+      <div class="cart-card">
+        <div class="cart-img">
+          <img src="https://images.unsplash.com/photo-1583391733981-8498405f51b7?auto=format&fit=crop&w=500&q=80">
+        </div>
+
+        <div class="cart-info">
+          <h3>Floral Printed Kurti</h3>
+          <div class="cart-meta">Size: M &nbsp; • &nbsp; Color: Green</div>
+
+          <div class="cart-price-row">
+            <span class="cart-price">₹699</span>
+            <span class="cart-old">₹999</span>
+            <span class="cart-discount">30% OFF</span>
+          </div>
+
+          <div class="stock">
+            <i class="ri-checkbox-circle-line"></i>
+            In Stock
+          </div>
+
+          <div class="qty-box">
+            <button onclick="changeQty(this,-1)">−</button>
+            <span>1</span>
+            <button onclick="changeQty(this,1)">+</button>
+          </div>
+        </div>
+
+        <button class="delete-btn" onclick="removeItem(this)">
+          <i class="ri-delete-bin-line"></i>
+        </button>
+
+        <div class="line-total">₹699</div>
+      </div>
+
+      <div class="cart-card">
+        <div class="cart-img">
+          <img src="https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?auto=format&fit=crop&w=500&q=80">
+        </div>
+
+        <div class="cart-info">
+          <h3>Embroidered Anarkali</h3>
+          <div class="cart-meta">Size: L &nbsp; • &nbsp; Color: Pink</div>
+
+          <div class="cart-price-row">
+            <span class="cart-price">₹1,299</span>
+            <span class="cart-old">₹1,999</span>
+            <span class="cart-discount">35% OFF</span>
+          </div>
+
+          <div class="stock">
+            <i class="ri-checkbox-circle-line"></i>
+            In Stock
+          </div>
+
+          <div class="qty-box">
+            <button onclick="changeQty(this,-1)">−</button>
+            <span>1</span>
+            <button onclick="changeQty(this,1)">+</button>
+          </div>
+        </div>
+
+        <button class="delete-btn" onclick="removeItem(this)">
+          <i class="ri-delete-bin-line"></i>
+        </button>
+
+        <div class="line-total">₹1,299</div>
+      </div>
+
+      <div class="cart-card">
+        <div class="cart-img">
+          <img src="https://images.unsplash.com/photo-1617019114583-affb34d1b3cd?auto=format&fit=crop&w=500&q=80">
+        </div>
+
+        <div class="cart-info">
+          <h3>Cotton Printed Kurti</h3>
+          <div class="cart-meta">Size: M &nbsp; • &nbsp; Color: Blue</div>
+
+          <div class="cart-price-row">
+            <span class="cart-price">₹599</span>
+            <span class="cart-old">₹899</span>
+            <span class="cart-discount">33% OFF</span>
+          </div>
+
+          <div class="stock">
+            <i class="ri-checkbox-circle-line"></i>
+            In Stock
+          </div>
+
+          <div class="qty-box">
+            <button onclick="changeQty(this,-1)">−</button>
+            <span>1</span>
+            <button onclick="changeQty(this,1)">+</button>
+          </div>
+        </div>
+
+        <button class="delete-btn" onclick="removeItem(this)">
+          <i class="ri-delete-bin-line"></i>
+        </button>
+
+        <div class="line-total">₹599</div>
+      </div>
+
+    </section>
+
+    <section class="address-box">
+      <div class="address-left">
+        <i class="ri-map-pin-2-line"></i>
+        <div>
+          <h3>Delivery Address</h3>
+          <p id="addressPreview">
+            No address added yet. Please add your delivery address before checkout.
+          </p>
+        </div>
+      </div>
+
+      <button class="address-btn" onclick="openAddressPopup()">
+        Add Address
+      </button>
+    </section>
+
+    <section class="cart-middle">
+
+      <div class="coupon-card">
+        <h3 class="card-heading">
+          <i class="ri-price-tag-3-line"></i>
+          Apply Coupon
+        </h3>
+
+        <div class="coupon-input-row">
+          <input id="couponInput" type="text" placeholder="Enter coupon code">
+          <button onclick="applyCoupon()">Apply</button>
+        </div>
+
+        <div class="coupon-hint">
+          <i class="ri-coupon-3-line"></i>
+          <div>
+            <strong>If you have coupon use here</strong><br>
+            Save more with exciting offers on checkout.
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <h3>Order Summary</h3>
+
+        <div class="summary-row">
+          <span>Subtotal (3 items)</span>
+          <span>₹2,597</span>
+        </div>
+
+        <div class="summary-row discount-row">
+          <span>Discount</span>
+          <span>- ₹779</span>
+        </div>
+
+        <div class="summary-row shipping-row">
+          <span>Shipping</span>
+          <span>FREE</span>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="total-row">
+          <span>Total Amount</span>
+          <span>₹1,818</span>
+        </div>
+
+        <div class="saving-text">
+          <i class="ri-shield-check-line"></i>
+          You saved ₹779 on this order
+        </div>
+      </div>
+
+    </section>
+
+    <button class="checkout-btn" onclick="checkoutNow()">
+      PROCEED TO CHECKOUT
+      <i class="ri-arrow-right-line"></i>
+    </button>
+
+    <section class="cart-trust">
+      <div class="cart-trust-item">
+        <i class="ri-shield-check-line"></i>
+        <div>
+          <strong>100% Secure</strong>
+          <span>Payments</span>
+        </div>
+      </div>
+
+      <div class="cart-trust-item">
+        <i class="ri-truck-line"></i>
+        <div>
+          <strong>Free Shipping</strong>
+          <span>on every product</span>
+        </div>
+      </div>
+
+      <div class="cart-trust-item">
+        <i class="ri-refresh-line"></i>
+        <div>
+          <strong>7 Days Easy</strong>
+          <span>Returns</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>You May Also Like</h2>
+        <button class="view-all" onclick="goProducts()">View All <i class="ri-arrow-right-s-line"></i></button>
+      </div>
+
+      <div class="like-grid">
+        <div class="like-card">
+          <button class="wish-btn"><i class="ri-heart-line"></i></button>
+          <div class="like-img">
+            <img src="https://images.unsplash.com/photo-1583391733975-62a7de3c8e09?auto=format&fit=crop&w=500&q=80">
+          </div>
+          <div class="like-info">
+            <h3>Rayon Straight Kurti</h3>
+            <div class="price-row"><span class="sell-price">₹749</span><span class="old-price">₹1,099</span><span class="discount">32% OFF</span></div>
+            <div class="rating"><i class="ri-star-fill"></i> 4.4 <span>(88)</span></div>
+          </div>
+        </div>
+
+        <div class="like-card">
+          <button class="wish-btn"><i class="ri-heart-line"></i></button>
+          <div class="like-img">
+            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=500&q=80">
+          </div>
+          <div class="like-info">
+            <h3>Floral Maxi Dress</h3>
+            <div class="price-row"><span class="sell-price">₹1,099</span><span class="old-price">₹1,599</span><span class="discount">31% OFF</span></div>
+            <div class="rating"><i class="ri-star-fill"></i> 4.6 <span>(63)</span></div>
+          </div>
+        </div>
+
+        <div class="like-card">
+          <button class="wish-btn"><i class="ri-heart-line"></i></button>
+          <div class="like-img">
+            <img src="https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=500&q=80">
+          </div>
+          <div class="like-info">
+            <h3>Casual Collar Top</h3>
+            <div class="price-row"><span class="sell-price">₹449</span><span class="old-price">₹699</span><span class="discount">36% OFF</span></div>
+            <div class="rating"><i class="ri-star-fill"></i> 4.3 <span>(52)</span></div>
+          </div>
+        </div>
+
+        <div class="like-card">
+          <button class="wish-btn"><i class="ri-heart-line"></i></button>
+          <div class="like-img">
+            <img src="https://images.unsplash.com/photo-1611035624347-4c99d3f1d414?auto=format&fit=crop&w=500&q=80">
+          </div>
+          <div class="like-info">
+            <h3>Designer Saree</h3>
+            <div class="price-row"><span class="sell-price">₹1,899</span><span class="old-price">₹2,899</span><span class="discount">34% OFF</span></div>
+            <div class="rating"><i class="ri-star-fill"></i> 4.7 <span>(112)</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-item" onclick="goHome()">
+      <i class="ri-home-5-line"></i>
+      <span>Home</span>
+    </button>
+
+    <button class="nav-item" onclick="goProducts()">
+      <i class="ri-shopping-bag-line"></i>
+      <span>Products</span>
+    </button>
+
+    <button class="nav-item active" onclick="goCart()">
+      <i class="ri-shopping-cart-fill"></i>
+      <span>Cart</span>
+    </button>
+
+    <button class="nav-item" onclick="goOrders()">
+      <i class="ri-box-3-line"></i>
+      <span>Orders</span>
+    </button>
+
+    <button class="nav-item" onclick="goProfile()">
+      <i class="ri-user-line"></i>
+      <span>Profile</span>
+    </button>
+  </nav>
+
+  <div class="address-modal" id="addressModal">
+    <div class="address-popup">
+      <div class="popup-head">
+        <h2>Delivery Address</h2>
+        <button class="close-popup" onclick="closeAddressPopup()">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+
+      <div class="address-grid">
+        <div class="address-field">
+          <label>Name</label>
+          <input id="addrName" type="text" placeholder="Enter your name">
+        </div>
+
+        <div class="address-field">
+          <label>Phone</label>
+          <input id="addrPhone" type="tel" maxlength="10" placeholder="Enter phone number">
+        </div>
+
+        <div class="address-field">
+          <label>Village / Area</label>
+          <input id="addrVillage" type="text" placeholder="Village or area">
+        </div>
+
+        <div class="address-field">
+          <label>Post Office</label>
+          <input id="addrPost" type="text" placeholder="Post office">
+        </div>
+
+        <div class="address-field">
+          <label>Police Station</label>
+          <input id="addrPs" type="text" placeholder="Police station">
+        </div>
+
+        <div class="address-field">
+          <label>District</label>
+          <input id="addrDistrict" type="text" placeholder="District">
+        </div>
+
+        <div class="address-field">
+          <label>Pincode</label>
+          <input id="addrPin" type="tel" maxlength="6" placeholder="Pincode">
+        </div>
+
+        <div class="address-field">
+          <label>Land Mark</label>
+          <input id="addrLandmark" type="text" placeholder="Nearby landmark">
+        </div>
+      </div>
+
+      <button class="save-address-btn" onclick="saveAddress()">
+        Save Address
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let savedAddress = null;
+
+    function changeQty(button, change) {
+      const qtyBox = button.parentElement;
+      const qtySpan = qtyBox.querySelector("span");
+      let qty = Number(qtySpan.innerText);
+
+      qty += change;
+
+      if (qty < 1) qty = 1;
+
+      qtySpan.innerText = qty;
+      showToast("Quantity updated");
+    }
+
+    function removeItem(button) {
+      const card = button.closest(".cart-card");
+      card.remove();
+      showToast("Item removed from cart");
+    }
+
+    function applyCoupon() {
+      const code = document.getElementById("couponInput").value.trim();
+
+      if (!code) {
+        showToast("If you have coupon use here");
+        return;
+      }
+
+      showToast("Coupon applied successfully");
+    }
+
+    function openAddressPopup() {
+      document.getElementById("addressModal").classList.add("show");
+
+      const user = getUser();
+
+      if (user.name) document.getElementById("addrName").value = user.name;
+      if (user.phone) document.getElementById("addrPhone").value = user.phone;
+    }
+
+    function closeAddressPopup() {
+      document.getElementById("addressModal").classList.remove("show");
+    }
+
+    function saveAddress() {
+      const data = {
+        name: document.getElementById("addrName").value.trim(),
+        phone: document.getElementById("addrPhone").value.trim(),
+        village: document.getElementById("addrVillage").value.trim(),
+        post: document.getElementById("addrPost").value.trim(),
+        ps: document.getElementById("addrPs").value.trim(),
+        district: document.getElementById("addrDistrict").value.trim(),
+        pin: document.getElementById("addrPin").value.trim(),
+        landmark: document.getElementById("addrLandmark").value.trim()
+      };
+
+      if (
+        !data.name ||
+        !data.phone ||
+        !data.village ||
+        !data.post ||
+        !data.ps ||
+        !data.district ||
+        !data.pin ||
+        !data.landmark
+      ) {
+        showToast("Please fill all address details");
+        return;
+      }
+
+      if (!validatePhone(data.phone)) {
+        showToast("Please enter a valid phone number");
+        return;
+      }
+
+      if (!/^\d{6}$/.test(data.pin)) {
+        showToast("Please enter valid pincode");
+        return;
+      }
+
+      savedAddress = data;
+
+      document.getElementById("addressPreview").innerHTML =
+        `${data.name}, ${data.phone}<br>
+        ${data.village}, ${data.post}, ${data.ps}<br>
+        ${data.district} - ${data.pin}<br>
+        Landmark: ${data.landmark}`;
+
+      closeAddressPopup();
+      showToast("Address saved successfully");
+    }
+
+    function checkoutNow() {
+      if (!savedAddress) {
+        showToast("Please add delivery address");
+        openAddressPopup();
+        return;
+      }
+
+      showToast("Redirecting to Razorpay checkout");
+    }
+
+    document.getElementById("addrPhone").addEventListener("input", function () {
+      this.value = this.value.replace(/\D/g, "").slice(0, 10);
+    });
+
+    document.getElementById("addrPin").addEventListener("input", function () {
+      this.value = this.value.replace(/\D/g, "").slice(0, 6);
+    });
+  </script>
+
+</body>
+</html>
