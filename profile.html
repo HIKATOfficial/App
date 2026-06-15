@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>HI • KAT | Profile</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="common.js" defer></script>
+
+  <style>
+    body{
+      background:#fff;
+      padding-bottom:95px;
+    }
+
+    .profile-header{
+      padding:22px 28px;
+      display:grid;
+      grid-template-columns:45px 220px 1fr 45px 45px 45px;
+      align-items:center;
+      gap:18px;
+      background:#fff;
+    }
+
+    .menu-btn,
+    .header-action{
+      font-size:30px;
+      color:#111827;
+      background:none;
+      position:relative;
+    }
+
+    .profile-logo .brand-logo{
+      font-size:42px;
+      letter-spacing:4px;
+    }
+
+    .profile-logo .brand-tagline{
+      font-size:15px;
+      margin-top:2px;
+      letter-spacing:1px;
+    }
+
+    .search-box{
+      height:55px;
+      border:1.5px solid #e5e7eb;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:0 22px;
+      color:#6b7280;
+      font-size:18px;
+      background:#fff;
+    }
+
+    .cart-badge{
+      position:absolute;
+      top:-8px;
+      right:-8px;
+      width:24px;
+      height:24px;
+      background:#8b1bb3;
+      color:#fff;
+      border-radius:50%;
+      font-size:13px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+    }
+
+    .profile-container{
+      padding:0 30px;
+    }
+
+    .page-title{
+      margin:26px 0 20px;
+    }
+
+    .page-title h1{
+      font-size:34px;
+      margin-bottom:8px;
+    }
+
+    .page-title p{
+      color:#6b7280;
+      font-size:16px;
+    }
+
+    .profile-hero{
+      border-radius:18px;
+      background:linear-gradient(100deg,#f4ecff,#fff,#f4ecff);
+      padding:28px;
+      display:grid;
+      grid-template-columns:1fr 300px;
+      gap:24px;
+      align-items:center;
+      margin-bottom:22px;
+    }
+
+    .user-main{
+      display:flex;
+      gap:28px;
+      align-items:center;
+    }
+
+    .avatar-wrap{
+      position:relative;
+      width:150px;
+      height:150px;
+      flex:0 0 auto;
+    }
+
+    .avatar-wrap img{
+      width:100%;
+      height:100%;
+      border-radius:50%;
+      object-fit:cover;
+      border:3px solid #fff;
+      box-shadow:0 12px 25px rgba(91,26,156,.18);
+    }
+
+    .avatar-edit{
+      position:absolute;
+      right:0;
+      bottom:8px;
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      background:#fff;
+      color:#111827;
+      box-shadow:0 6px 18px rgba(0,0,0,.12);
+      font-size:22px;
+    }
+
+    .user-info h2{
+      font-size:32px;
+      margin-bottom:12px;
+    }
+
+    .info-line{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin:12px 0;
+      font-size:16px;
+      color:#111827;
+    }
+
+    .info-line i{
+      color:#5B1A9C;
+      font-size:22px;
+    }
+
+    .club-card{
+      background:#fff;
+      border-radius:14px;
+      padding:24px;
+      box-shadow:0 8px 24px rgba(0,0,0,.06);
+      border:1px solid #ead8ff;
+    }
+
+    .club-card h3{
+      font-family:"Playfair Display",serif;
+      color:#5B1A9C;
+      font-size:24px;
+      margin-bottom:12px;
+    }
+
+    .club-card i{
+      color:#D4AF37;
+      margin-right:8px;
+    }
+
+    .club-card p{
+      color:#6b7280;
+      margin-bottom:10px;
+    }
+
+    .club-card strong{
+      color:#5B1A9C;
+    }
+
+    .stats-card{
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      box-shadow:0 5px 22px rgba(0,0,0,.06);
+      padding:18px;
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:18px;
+      margin-bottom:22px;
+    }
+
+    .stat-box{
+      border-radius:12px;
+      min-height:118px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+
+    .stat-box i{
+      font-size:34px;
+    }
+
+    .stat-box strong{
+      font-size:26px;
+    }
+
+    .stat-box span{
+      font-size:14px;
+    }
+
+    .stat-purple{background:#faf5ff;color:#5B1A9C;}
+    .stat-orange{background:#fff7ed;color:#ea580c;}
+    .stat-blue{background:#eff6ff;color:#2563eb;}
+    .stat-yellow{background:#fffbeb;color:#d97706;}
+    .stat-red{background:#fff1f2;color:#dc2626;}
+
+    .orders-preview{
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      box-shadow:0 5px 22px rgba(0,0,0,.06);
+      padding:22px;
+      margin-bottom:26px;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+    }
+
+    .section-head h2{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:#111827;
+      font-size:24px;
+    }
+
+    .section-head h2 i{
+      color:#5B1A9C;
+    }
+
+    .view-all{
+      color:#5B1A9C;
+      font-weight:800;
+      background:none;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .mini-orders{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+
+    .mini-order{
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      padding:12px;
+      display:grid;
+      grid-template-columns:90px 1fr 28px;
+      gap:14px;
+      align-items:center;
+    }
+
+    .mini-order img{
+      width:90px;
+      height:110px;
+      border-radius:8px;
+      object-fit:cover;
+    }
+
+    .mini-order h3{
+      font-size:15px;
+      margin-bottom:8px;
+    }
+
+    .mini-order p{
+      color:#6b7280;
+      font-size:13px;
+      margin-bottom:8px;
+    }
+
+    .mini-order .delivered{color:#16A34A;font-weight:800;}
+    .mini-order .shipped{color:#2563eb;font-weight:800;}
+    .mini-order .out{color:#5B1A9C;font-weight:800;}
+
+    .mini-order strong{
+      display:block;
+      margin-top:10px;
+      font-size:18px;
+    }
+
+    .profile-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      margin-bottom:26px;
+    }
+
+    .menu-section h3{
+      font-size:18px;
+      margin:0 0 12px 12px;
+    }
+
+    .menu-card{
+      border:1px solid #e5e7eb;
+      border-radius:14px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow:0 5px 22px rgba(0,0,0,.04);
+    }
+
+    .menu-row{
+      min-height:72px;
+      display:grid;
+      grid-template-columns:42px 1fr 28px;
+      align-items:center;
+      gap:16px;
+      padding:0 22px;
+      border-bottom:1px solid #eee;
+      background:#fff;
+      width:100%;
+      text-align:left;
+    }
+
+    .menu-row:last-child{
+      border-bottom:0;
+    }
+
+    .menu-row i{
+      font-size:24px;
+      color:#5B1A9C;
+    }
+
+    .menu-row strong{
+      display:block;
+      font-size:15px;
+      margin-bottom:4px;
+    }
+
+    .menu-row span{
+      color:#6b7280;
+      font-size:13px;
+    }
+
+    .support-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      margin-bottom:18px;
+    }
+
+    .logout-row{
+      border-radius:14px;
+      background:linear-gradient(90deg,#fff1f2,#fff);
+      border:1px solid #fee2e2;
+      min-height:72px;
+      display:grid;
+      grid-template-columns:42px 1fr 28px;
+      align-items:center;
+      gap:16px;
+      padding:0 24px;
+      width:100%;
+      text-align:left;
+      color:#dc2626;
+      margin-bottom:20px;
+    }
+
+    .logout-row i{
+      font-size:26px;
+    }
+
+    .logout-row strong{
+      display:block;
+      font-size:15px;
+      margin-bottom:4px;
+    }
+
+    .logout-row span{
+      color:#6b7280;
+      font-size:13px;
+    }
+
+    .bottom-nav{
+      grid-template-columns:repeat(5,1fr);
+    }
+
+    @media(max-width:900px){
+      .profile-header{
+        grid-template-columns:38px 1fr 38px 38px;
+        padding:16px;
+      }
+
+      .search-box{
+        grid-column:1/-1;
+        order:2;
+      }
+
+      .profile-logo .brand-logo{
+        font-size:34px;
+      }
+
+      .profile-container{
+        padding:0 14px;
+      }
+
+      .profile-hero{
+        grid-template-columns:1fr;
+      }
+
+      .user-main{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .info-line{
+        justify-content:center;
+      }
+
+      .stats-card{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .mini-orders{
+        grid-template-columns:1fr;
+      }
+
+      .profile-grid,
+      .support-grid{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-shipping-bar">
+    <i class="ri-truck-line"></i>
+    <span>FREE SHIPPING on orders above ₹999</span>
+  </div>
+
+  <header class="profile-header">
+    <button class="menu-btn"><i class="ri-menu-line"></i></button>
+
+    <div class="profile-logo">
+      <div class="brand-logo">HI<span class="brand-dot">•</span>KAT</div>
+      <div class="brand-tagline">Wear Your Story</div>
+    </div>
+
+    <div class="search-box" onclick="goProducts()">
+      <i class="ri-search-line"></i>
+      <span>Search for products...</span>
+    </div>
+
+    <button class="header-action"><i class="ri-heart-line"></i></button>
+
+    <button class="header-action" onclick="goCart()">
+      <i class="ri-shopping-cart-line"></i>
+      <span class="cart-badge">3</span>
+    </button>
+
+    <button class="header-action" onclick="goProfile()">
+      <i class="ri-user-line"></i>
+    </button>
+  </header>
+
+  <main class="profile-container">
+
+    <section class="page-title">
+      <h1>My Profile</h1>
+      <p>Manage your account and preferences</p>
+    </section>
+
+    <section class="profile-hero">
+      <div class="user-main">
+        <div class="avatar-wrap">
+          <img src="https://images.unsplash.com/photo-1618375531912-867984bdfd87?auto=format&fit=crop&w=400&q=80">
+          <button class="avatar-edit" onclick="showToast('Profile photo edit coming soon')">
+            <i class="ri-pencil-line"></i>
+          </button>
+        </div>
+
+        <div class="user-info">
+          <h2 id="profileName">Hi Kat</h2>
+
+          <div class="info-line">
+            <i class="ri-phone-line"></i>
+            <span id="profilePhone">+91 98765 43210</span>
+          </div>
+
+          <div class="info-line">
+            <i class="ri-mail-line"></i>
+            <span>hikatfashion@gmail.com</span>
+          </div>
+
+          <div class="info-line">
+            <i class="ri-map-pin-line"></i>
+            <span>Kolkata, West Bengal</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="club-card">
+        <h3><i class="ri-vip-crown-fill"></i> HI • KAT CLUB</h3>
+        <p>Member since May 2025</p>
+        <strong>Exclusive offers unlocked!</strong>
+      </div>
+    </section>
+
+    <section class="stats-card">
+      <div class="stat-box stat-purple">
+        <i class="ri-shopping-bag-line"></i>
+        <strong>12</strong>
+        <span>Total Orders</span>
+      </div>
+
+      <div class="stat-box stat-orange">
+        <i class="ri-box-3-line"></i>
+        <strong>4</strong>
+        <span>Delivered</span>
+      </div>
+
+      <div class="stat-box stat-blue">
+        <i class="ri-truck-line"></i>
+        <strong>2</strong>
+        <span>Shipped</span>
+      </div>
+
+      <div class="stat-box stat-yellow">
+        <i class="ri-time-line"></i>
+        <strong>1</strong>
+        <span>Pending</span>
+      </div>
+
+      <div class="stat-box stat-red">
+        <i class="ri-close-circle-line"></i>
+        <strong>1</strong>
+        <span>Cancelled</span>
+      </div>
+    </section>
+
+    <section class="orders-preview">
+      <div class="section-head">
+        <h2><i class="ri-clipboard-line"></i> My Orders</h2>
+        <button class="view-all" onclick="goOrders()">
+          View All Orders
+          <i class="ri-arrow-right-s-line"></i>
+        </button>
+      </div>
+
+      <div class="mini-orders">
+        <div class="mini-order" onclick="goOrders()">
+          <img src="https://images.unsplash.com/photo-1618244972963-dbee1a7edc95?auto=format&fit=crop&w=300&q=80">
+          <div>
+            <h3>Order #HK12345</h3>
+            <p>12 May 2025</p>
+            <span class="delivered">Delivered</span>
+            <strong>₹1,818</strong>
+          </div>
+          <i class="ri-arrow-right-s-line"></i>
+        </div>
+
+        <div class="mini-order" onclick="goOrders()">
+          <img src="https://images.unsplash.com/photo-1611035624347-4c99d3f1d414?auto=format&fit=crop&w=300&q=80">
+          <div>
+            <h3>Order #HK12344</h3>
+            <p>08 May 2025</p>
+            <span class="shipped">Shipped</span>
+            <strong>₹1,999</strong>
+          </div>
+          <i class="ri-arrow-right-s-line"></i>
+        </div>
+
+        <div class="mini-order" onclick="goOrders()">
+          <img src="https://images.unsplash.com/photo-1617019114583-affb34d1b3cd?auto=format&fit=crop&w=300&q=80">
+          <div>
+            <h3>Order #HK12343</h3>
+            <p>05 May 2025</p>
+            <span class="out">Out for Delivery</span>
+            <strong>₹599</strong>
+          </div>
+          <i class="ri-arrow-right-s-line"></i>
+        </div>
+      </div>
+    </section>
+
+    <section class="profile-grid">
+      <div class="menu-section">
+        <h3>Account Settings</h3>
+
+        <div class="menu-card">
+          <button class="menu-row" onclick="showToast('Edit profile will open')">
+            <i class="ri-user-line"></i>
+            <div>
+              <strong>Edit Profile</strong>
+              <span>Update your personal information</span>
+            </div>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+
+          <button class="menu-row" onclick="showToast('Name and phone login has no password')">
+            <i class="ri-lock-line"></i>
+            <div>
+              <strong>Change Password</strong>
+              <span>Name and phone login system</span>
+            </div>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+
+          <button class="menu-row" onclick="showToast('Manage address will open')">
+            <i class="ri-map-pin-line"></i>
+            <div>
+              <strong>Manage Addresses</strong>
+              <span>View and manage delivery addresses</span>
+            </div>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+
+          <button class="menu-row" onclick="showToast('Payment methods coming soon')">
+            <i class="ri-bank-card-line"></i>
+            <div>
+              <strong>Payment Methods</strong>
+              <span>Manage your saved payment methods</span>
+            </div>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="menu-section">
+        <h3>My Activity</h3>
+
+        <div class="menu-card">
+          <button class="menu-row" onclick="goOrders()">
+            <i class="ri-clipboard-line"></i>
+            <div>
+              <strong>My Orders</strong>
+              <span>Track and view your orders</span>
+            </div>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+
+          <button class="menu-row" onclick="showToast('Wishlist coming soon')">
+            <i class="ri-heart-line"></i>
+            <div>
+              <strong>Wishlist</strong>
+              <span>View your saved items</span>
+            </div>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+
+          <button class="menu-row" onclick="showToast('Recently viewed coming soon')">
+            <i class="ri-history-line"></i>
+            <div>
+              <strong>Recently Viewed</strong>
+              <span>See items you viewed recently</span>
+            </div>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+
+          <button class="menu-row" onclick="showToast('HI • KAT Club coming soon')">
+            <i class="ri-vip-crown-line"></i>
+            <div>
+              <strong>HI • KAT Club</strong>
+              <span>View exclusive offers and rewards</span>
+            </div>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="support-grid">
+      <div class="menu-section">
+        <h3>Customer Support</h3>
+
+        <div class="menu-card">
+          <button class="menu-row" onclick="showToast('Help center coming soon')">
+            <i class="ri-question-line"></i>
+            <div>
+              <strong>Help Center</strong>
+              <span>Find answers to common questions</span>
+            </div>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+
+          <button class="menu-row" onclick="showToast('Return and refund policy coming soon')">
+            <i class="ri-refresh-line"></i>
+            <div>
+              <strong>Return & Refund</strong>
+              <span>View our return and refund policy</span>
+            </div>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="menu-section">
+        <h3>&nbsp;</h3>
+
+        <div class="menu-card">
+          <button class="menu-row" onclick="contactSupport()">
+            <i class="ri-chat-1-line"></i>
+            <div>
+              <strong>Contact Support</strong>
+              <span>Get help from our support team</span>
+            </div>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+
+          <button class="menu-row" onclick="showToast('FAQs coming soon')">
+            <i class="ri-question-answer-line"></i>
+            <div>
+              <strong>FAQs</strong>
+              <span>Frequently asked questions</span>
+            </div>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <button class="logout-row" onclick="logout()">
+      <i class="ri-logout-box-r-line"></i>
+      <div>
+        <strong>Logout</strong>
+        <span>Sign out from your account</span>
+      </div>
+      <i class="ri-arrow-right-s-line"></i>
+    </button>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-item" onclick="goHome()">
+      <i class="ri-home-5-line"></i>
+      <span>Home</span>
+    </button>
+
+    <button class="nav-item" onclick="goProducts()">
+      <i class="ri-shopping-bag-line"></i>
+      <span>Products</span>
+    </button>
+
+    <button class="nav-item" onclick="goCart()">
+      <i class="ri-shopping-cart-line"></i>
+      <span>Cart</span>
+    </button>
+
+    <button class="nav-item" onclick="goOrders()">
+      <i class="ri-box-3-line"></i>
+      <span>Orders</span>
+    </button>
+
+    <button class="nav-item active" onclick="goProfile()">
+      <i class="ri-user-fill"></i>
+      <span>Profile</span>
+    </button>
+  </nav>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const user = getUser();
+
+      if (user.name) {
+        document.getElementById("profileName").innerText = user.name;
+      }
+
+      if (user.phone) {
+        document.getElementById("profilePhone").innerText = "+91 " + user.phone;
+      }
+    });
+
+    function contactSupport() {
+      const phone = CONFIG.SELLER_WHATSAPP || "91XXXXXXXXXX";
+      const text = encodeURIComponent("Hi, I need help with my HI • KAT account.");
+      window.open("https://wa.me/" + phone + "?text=" + text, "_blank");
+    }
+  </script>
+
+</body>
+</html>
