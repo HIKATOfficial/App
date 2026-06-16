@@ -196,20 +196,25 @@
 }
 
       .popup-thumbs{
-        display:grid;
-        grid-template-columns:repeat(4,1fr);
-        gap:10px;
-        margin-top:14px;
-      }
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  padding-bottom:4px;
+}
 
       .popup-thumb{
-        height:82px;
-        border-radius:12px;
-        overflow:hidden;
-        border:2px solid transparent;
-        cursor:pointer;
-        background:#f8f8f8;
-      }
+  min-width:82px;
+  width:82px;
+  height:82px;
+  border-radius:12px;
+  overflow:hidden;
+  border:2px solid transparent;
+  cursor:pointer;
+  background:#f8f8f8;
+  flex-shrink:0;
+}
 
       .popup-thumb.active{
         border-color:#5B1A9C;
