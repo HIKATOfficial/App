@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -662,7 +661,7 @@
       updateProductCount(products.length);
     }
 
-    async function openProductCard(productId) {
+    function openProductCard(productId) {
       const product = allProducts.find(p => p.product_id === productId);
 
       if (!product) {
@@ -670,18 +669,16 @@
         return;
       }
 
-      try {
-        if (typeof saveProductView === "function") {
-          await saveProductView(product);
-        }
-      } catch (err) {
-        console.warn("View save failed", err);
+      if (typeof saveProductView === "function") {
+        saveProductView(product).catch(err => {
+          console.warn("View save failed", err);
+        });
       }
 
       if (typeof openProductPopup === "function") {
         openProductPopup(product);
       } else {
-        showToast(product.product_name || product.name);
+        showToast(product.product_name || product.name || "Product");
       }
     }
 
