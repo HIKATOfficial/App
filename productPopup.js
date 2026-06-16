@@ -182,18 +182,18 @@
       }
 
       .main-popup-image{
-        width:100%;
-        height:480px;
-        border-radius:20px;
-        overflow:hidden;
-        background:#f8f8f8;
-      }
+  width:100%;
+  height:75vh;
+  border-radius:20px;
+  overflow:hidden;
+  background:#fff;
+}
 
       .main-popup-image img{
-        width:100%;
-        height:100%;
-        object-fit:cover;
-      }
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
 
       .popup-thumbs{
         display:grid;
