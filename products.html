@@ -755,12 +755,6 @@
       const cart = JSON.parse(localStorage.getItem("hikat_cart_items") || "[]");
       badge.innerText = cart.length;
     }
-
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js");
-      });
-    }
   </script>
 
 </body>
