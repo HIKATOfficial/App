@@ -312,8 +312,8 @@
       }
 
       .popup-live-view{
-        background:#FFF7ED;
-        color:#EA580C;
+        background:#ECFDF5;
+color:#059669;
         padding:8px 12px;
         border-radius:999px;
         font-size:13px;
